@@ -28,7 +28,7 @@ class CurrencyTest < Minitest::Test
   end
 
   def test_multiply
-    multiplied_currency = Currency.new('USD', 5) * 5
+    multiplied_currency = Currency.new('USD', 5) * (5)
     assert_equal multiplied_currency, Currency.new('USD', 25)
   end
 end
