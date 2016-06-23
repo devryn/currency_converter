@@ -1,5 +1,5 @@
 class DifferentCurrencyCodeError < StandardError
-  def message(other)
+  def message
     "Currency types are not consistent, cannot be added or subtracted."
   end
 end
@@ -11,30 +11,31 @@ class Currency
     @amount = amount
   end
 
-  def ==(code, amount)
+  def ==(other)
     return false unless other.is_a?(Currency) #are you currency?
     @code == other.code #is the currency code the same?
-    @amount == another.amount
+    @amount == other.amount
   end
 
-  def !=(code, amount)
+  def !=(other)
     return false until other.is_a?(Currency)
     @code != other.code
     @amount != other.amount
   end
 
   def +(other)
-    raise  DifferentCurrencyCodeError.new(other) unless other.is_a?(Currency)
-    Currency.new(@amount + other.amount)
+    raise  DifferentCurrencyCodeError unless other.is_a?(Currency)
+    final_amount = @amount + other.amount
+    Currency.new(@code, final_amount)
   end
 
   def -(other)
-    raise DifferentCurrencyCodeError.new(other) unless other.is_a?(Currency)
+    raise DifferentCurrencyCodeError unless other.is_a?(Currency)
     final_amount = @amount - other.amount
     if final_amount < 0
       STDERR.puts ("WARNING : Amount was going to be #{final_amount}. Cannot have negative Currency.")
     else
-      Currency.new(final_amount)
+      Currency.new(@code, final_amount)
     end
   end
 end
