@@ -9,14 +9,14 @@ class CurrencyTest < Minitest::Test
   end
 
   def test_correct_amount
-    assert_equal('100', Currency.new('USD', "100").amount)
-  end
-
-  def test_equals
-    assert_equal('Currency', 'Currency')
+    assert_equal('100', Currency.new('USD', '100').amount)
   end
 
   def test_doesnt_equal
-    assert_equal('Not Currency', 'Not Currency')
+    refute_equal('USD', '100', Currency.new('E', '120'))
   end
+
+  #def test_add
+  #  assert_equal("2", Currency.new('USD', "1+1"))
+  #end -- not working
 end
