@@ -19,11 +19,16 @@ class CurrencyTest < Minitest::Test
 
   def test_add
     added_currency = (Currency.new('USD', 50) + Currency.new('USD', 50))
-    assert_equal added_currency, Currency.new('USD', 100)
+    assert_equal Currency.new('USD', 100), added_currency
   end
 
   def test_subtract
-    subtracted_currency = (Currency.new('USD', 100) - Currency.new('USD', 50))
-    assert_equal subtracted_currency, Currency.new('USD', 50)
+    subtracted_currency = (Currency.new('USD', 50) - Currency.new('USD', 10))
+    refute_equal Currency.new('USD', 40), subtracted_currency
+  end
+
+  def test_multiply
+    multiplied_currency = Currency.new('USD', 5) * 5
+    assert_equal multiplied_currency, Currency.new('USD', 25)
   end
 end
