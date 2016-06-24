@@ -57,14 +57,24 @@ class CurrencyConverter
     @codes = codes
   end
 
-  def currency_converter
-    CurrencyConverter.new( { USD: 1.0, EUR: 0.88, JPY: 106.58 } )
-  end
+  #def currency_converter
+  #  CurrencyConverter.new( { USD: 1.0, EUR: 0.88, JPY: 106.58 } )
+  #end
 
   def convert(currency, convert_to_code)
-    Currency.new(@codes, currency_converter)
+    codes = { USD: 1.0, EUR: 0.88, JPY: 106.58 }
+    rate = codes.fetch(convert_to_code.to_sym) / codes.fetch(currency.code.to_sym)
+    final_amount = currency.amount * rate
+    Currency.new(convert_to_code, final_amount)
   end
+end
+
+
+
+
+  # bring in a currency object | currency
+  # convert amt to the country you want | currency * conversian rate
+  # return a new currency object with new country and amount | currency.new(converted amount, to_country code)
+
 
   #currency_converter.convert( CurrencyConverter.new(1, :USD), :JPY) == CurrencyConverter.new(106.58, :JPY)
-
-end

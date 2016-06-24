@@ -9,7 +9,7 @@ class ConverterTest < Minitest::Test
     currency_converter = CurrencyConverter.new( { USD: 1.0, EUR: 0.88, JPY: 106.58 } )
 
     expect = Currency.new("USD", 1.0)
-    starting_currency = Currency.new('JPY', 106.58)
+    starting_currency = Currency.new("JPY", 106.58)
     actual = currency_converter.convert(starting_currency, :USD)
 
     assert_equal(expect, actual)
@@ -19,7 +19,7 @@ class ConverterTest < Minitest::Test
     currency_converter = CurrencyConverter.new( { USD: 1.0, EUR: 0.88, JPY: 106.58 } )
 
     expect = Currency.new("USD", 2.0)
-    starting_currency = Currency.new('JPY', 213.16)
+    starting_currency = Currency.new("JPY", 213.16)
     actual = currency_converter.convert(starting_currency, :USD)
 
     assert_equal(expect, actual)
