@@ -18,14 +18,12 @@ class Currency
   end
 
   def ==(other)
-    return false unless other.is_a?(Currency) #are you currency?
-    #@code == other.code #is the currency code the same?
+    return false unless other.is_a?(Currency)
     @amount == other.amount
   end
 
   def !=(other)
     return false until other.is_a?(Currency)
-    #@code != other.code
     @amount != other.amount
   end
 
@@ -52,6 +50,21 @@ class Currency
   end
 end
 
-class Convert
+
+class CurrencyConverter
+  attr_reader :codes
+  def initialize(codes)
+    @codes = codes
+  end
+
+  def currency_converter
+    CurrencyConverter.new( { USD: 1.0, EUR: 0.88, JPY: 106.58 } )
+  end
+
+  def convert(currency, convert_to_code)
+    Currency.new(@codes, currency_converter)
+  end
+
+  #currency_converter.convert( CurrencyConverter.new(1, :USD), :JPY) == CurrencyConverter.new(106.58, :JPY)
 
 end
