@@ -17,10 +17,22 @@ class NaN < StandardError
 end
 
 class Currency
+
   attr_reader :code, :amount
-  def initialize(code, amount)
-    @code = code
-    @amount = amount
+
+  CODES = {"$" => "USD", "€" => "EUR", "¥" => "JPY"}
+
+  def initialize(code = nil, amount)
+    if amount.is_a?(Fixnum) || amount.is_a?(Float)
+      @code = code
+      @amount = amount
+    else
+      @code = code
+      @amount = amount[/\d./].to_f
+      if CODES.key?(/\D/)
+        @code = CODES.fetch(amount[/\D/])
+      end
+    end
   end
 
   def ==(other)
